@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Weather Hunter</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Enter a location for Weather ..." id="input-value">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger" id="search-btn">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="city">City Name</h1>
+            <h3><span id="temp">Temperature</span>&deg;C</h3>
+            <h1 class="lead" id="disc">Weather</h1>
+        </div>
+    </div>
+<br /><br /><br /><br />
+</body>
+  <script>
+    
+    const cityName = document.getElementById('city');
+    const temp = document.getElementById('temp');
+    const disc = document.getElementById('disc');
+    const inputBox = document.getElementById('input-value');
+    
+    const button = document.getElementById('search-btn');
+    button.addEventListener('click', function(){
+      fetch('http://api.openweathermap.org/data/2.5/weather?q='+inputBox.value+'&appid=6ccbeb7a6e97e7f94aaaabca24ce7206')
+      .then(res => res.json())
+      .then(data =>{
+        const cityValue = data['name'];
+        cityName.innerText = cityValue;
+        const tempValue = data['main']['temp'];
+        temp.innerText = Math.round(tempValue - 273);
+        const discValue = data['weather'][0]['description'];
+        disc.innerText = discValue;
+        
+      })
+      .catch( err => alert('Your city is Undefiend'))
+    })
+  </script>
+</html>
