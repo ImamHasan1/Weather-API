@@ -47,7 +47,7 @@
     
     const button = document.getElementById('search-btn');
     button.addEventListener('click', function(){
-      fetch('http://api.openweathermap.org/data/2.5/weather?q='+inputBox.value+'&appid=6ccbeb7a6e97e7f94aaaabca24ce7206')
+      fetch('https://api.openweathermap.org/data/2.5/weather?q='+inputBox.value+'&appid=6ccbeb7a6e97e7f94aaaabca24ce7206')
       .then(res => res.json())
       .then(data =>{
         const cityValue = data['name'];
